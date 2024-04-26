@@ -12,6 +12,13 @@ export default function Login({ navigation }) {
         })
     }
 
+    function entrarADM() {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: "InicioADM" }]
+        })
+    }
+
     function cadastrar() {
         navigation.reset({
             index: 0,
@@ -38,11 +45,14 @@ export default function Login({ navigation }) {
                 <Text style={[styles.link, { color: 'red' }]}>Esqueceu a senha? Clique aqui !!!</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.botao, { marginTop: 15 }]} onPress={() => entrar()}>
-                <Text style={[styles.texto, styles.textoBranco]}>Entrar</Text>
+                <Text style={[styles.texto, styles.textoBranco]}>Entrar como candidato</Text>
             </TouchableOpacity>
             <Text style={{ marginTop: 15 }}>Não possui cadastro?</Text>
             <TouchableOpacity onPress={() => cadastrar()}>
                 <Text style={styles.link}>Clique aqui para cadastrar!!!</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.botao, { marginTop: 15 }]} onPress={() => entrarADM()}>
+                <Text style={[styles.texto, styles.textoBranco]}>Entrar como adm</Text>
             </TouchableOpacity>
         </View >
     );
