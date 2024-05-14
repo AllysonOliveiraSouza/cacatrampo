@@ -3,19 +3,23 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#99f0f7',
+        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
     texto: {
         fontSize: 20,
+        fontWeight: 'bold',
+        color: '#090744'
+    },
+    textoBotao: {
+        fontSize: 40,
         fontWeight: 'bold'
     },
     botao: {
         display: 'flex',
-        backgroundColor: '#3102a8',
+        backgroundColor: '#090744',
         padding: 15,
-        height: 65,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20
@@ -25,16 +29,23 @@ const styles = StyleSheet.create({
     },
     inputTexto: {
         textAlign: 'center',
-        backgroundColor: 'white',
-        borderWidth: 2,
-        width: '55%',
-        height: 40,
-        borderRadius: 20,
-        marginBottom: 15
+        backgroundColor: '#C6C6D0',
+        borderWidth: 3,
+        borderColor: '#090744',
+        width: '70%',
+        height: 73,
+        borderRadius: 30,
+        marginBottom: 15,
+        fontSize: 32,
+        fontWeight: 'bold'
     },
     link: {
         textDecorationLine: 'underline',
-        color: 'blue'
+        color: 'blue',
+        fontSize: 36,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        marginTop: 10,
     }
 });
 

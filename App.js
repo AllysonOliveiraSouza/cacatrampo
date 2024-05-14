@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 import styles from './styles/styles';
 import Login from './screens/Login';
-import Inicio from './screens/Inicio';
+// import Inicio from './screens/Inicio';
 //import Cadastro from './screens/Cadastro';
 import RecuperarSenha from './screens/RecuperarSenha';
 import Curriculo from './screens/curriculo';
@@ -14,6 +14,9 @@ import AlterarCadastro from './screens/AlterarCadastro';
 import InicioADM from './screens/InicioADM';
 import CadastroVagas from './screens/CadastroVagas';
 import HistoricoVagas from './screens/HistoricoVagas';
+import Vagas from './screens/Vagas';
+import PaginaInicialPHM from './screens/PaginaInicialPHM';
+import CurriculosEnviados from './screens/CurriculosEnviados';
 
 
 const Stack = createStackNavigator();
@@ -21,16 +24,18 @@ const Stack = createStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Inicio" component={Inicio} />
-      <Stack.Screen name="Cadastro" component={CadastroLP} />
-      <Stack.Screen name="RecuperarSenha" component={RecuperarSenha} />
-      <Stack.Screen name="Curriculo" component={Curriculo} />
-      <Stack.Screen name="ChatJC" component={Mensagens} />
-      <Stack.Screen name="AlterarCadastro" component={AlterarCadastro} />
-      <Stack.Screen name="InicioADM" component={InicioADM} />
-      <Stack.Screen name="CadastroVagas" component={CadastroVagas} />
-      <Stack.Screen name="HistoricoVagas" component={HistoricoVagas} />
+      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name="Inicio" component={PaginaInicialPHM} options={{ headerShown: false }} />
+      <Stack.Screen name="Cadastro" component={CadastroLP} options={{ headerShown: false }} />
+      <Stack.Screen name="RecuperarSenha" component={RecuperarSenha} options={{ headerShown: false }} />
+      <Stack.Screen name="Curriculo" component={Curriculo} options={{ headerShown: false }} />
+      <Stack.Screen name="ChatJC" component={Mensagens} options={{ headerShown: false }} />
+      <Stack.Screen name="AlterarCadastro" component={AlterarCadastro} options={{ headerShown: false }} />
+      <Stack.Screen name="InicioADM" component={InicioADM} options={{ headerShown: false }} />
+      <Stack.Screen name="CadastroVagas" component={CadastroVagas} options={{ headerShown: false }} />
+      <Stack.Screen name="HistoricoVagas" component={HistoricoVagas} options={{ headerShown: false }} />
+      <Stack.Screen name="Vagas" component={Vagas} options={{ headerShown: false }} />
+      <Stack.Screen name="CurriculosEnviados" component={CurriculosEnviados} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
