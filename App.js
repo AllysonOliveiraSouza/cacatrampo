@@ -17,6 +17,8 @@ import HistoricoVagas from './screens/HistoricoVagas';
 import Vagas from './screens/Vagas';
 import PaginaInicialPHM from './screens/PaginaInicialPHM';
 import CurriculosEnviados from './screens/CurriculosEnviados';
+import Mensagem from './screens/Mensagem';
+import DescricaoDetalhada from './screens/DescricaoDetalhada';
 
 
 const Stack = createStackNavigator();
@@ -29,13 +31,14 @@ function MyStack() {
       <Stack.Screen name="Cadastro" component={CadastroLP} options={{ headerShown: false }} />
       <Stack.Screen name="RecuperarSenha" component={RecuperarSenha} options={{ headerShown: false }} />
       <Stack.Screen name="Curriculo" component={Curriculo} options={{ headerShown: false }} />
-      <Stack.Screen name="ChatJC" component={Mensagens} options={{ headerShown: false }} />
       <Stack.Screen name="AlterarCadastro" component={AlterarCadastro} options={{ headerShown: false }} />
       <Stack.Screen name="InicioADM" component={InicioADM} options={{ headerShown: false }} />
       <Stack.Screen name="CadastroVagas" component={CadastroVagas} options={{ headerShown: false }} />
       <Stack.Screen name="HistoricoVagas" component={HistoricoVagas} options={{ headerShown: false }} />
       <Stack.Screen name="Vagas" component={Vagas} options={{ headerShown: false }} />
       <Stack.Screen name="CurriculosEnviados" component={CurriculosEnviados} options={{ headerShown: false }} />
+      <Stack.Screen name="Mensagem" component={Mensagem} options={{ headerShown: false }} />
+      <Stack.Screen name="DescricaoDetalhada" component={DescricaoDetalhada} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

@@ -1,136 +1,140 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Image, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const AlterarCadastro = ({ navigation }) => {
 
-    function voltarAoMenu() {
+const AlterarCadastro = () => {
+
+    const navigation = useNavigation();
+
+
+    function menu() {
         navigation.reset({
             index: 0,
             routes: [{ name: "Inicio" }]
         })
-
     }
 
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [dataNascimento, setDataNascimento] = useState('');
-    const [celular, setCelular] = useState('');
-    const [senha, setSenha] = useState('');
-    const [curriculo, setCurriculo] = useState('');
-    const [matricula, setMatricula] = useState('');
+    function cadastroAlterado(msg, Tela) {
+        navigation.navigate("Mensagem", { mensagem: msg, tela: Tela });
+    }
 
-    const handleSubmit = () => {
-        // Lógica para enviar os dados alterados para o servidor
-        console.log('Nome:', nome);
-        console.log('Email:', email);
-        console.log('Data de Nascimento:', dataNascimento);
-        console.log('Celular:', celular);
-        console.log('Senha:', senha);
-        console.log('Curriculo:', curriculo);
-        console.log('Matrícula:', matricula);
-        // Você pode implementar aqui a lógica para enviar os dados para o servidor
-    };
 
-    const handleSelectCurriculo = () => {
-        // Lógica para abrir o explorador de arquivos para selecionar o currículo em PDF
-        // Esta função seria acionada quando o usuário clicar no campo para alterar o currículo
-    };
+
+
 
     return (
         <View style={styles.container}>
-            <View style={styles.imageContainer}>
-                <Image
-                    source={require('../src/assets/cacatrampo-logo.png')} // Ajuste o caminho conforme necessário
-                    style={styles.profileImage}
-                />
-                <Text style={styles.descriptionText}>Preencha corretamente os dados que deseja alterar</Text>
-            </View>
-            <TextInput
-                style={styles.input}
-                placeholder="Nome completo"
-                value={nome}
-                onChangeText={setNome}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Data de nascimento (DD/MM/AAAA)"
-                value={dataNascimento}
-                onChangeText={setDataNascimento}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Celular"
-                value={celular}
-                onChangeText={setCelular}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Nova senha"
-                value={senha}
-                onChangeText={setSenha}
-                secureTextEntry={true}
-            />
-            <Button
-                title="Alterar Senha"
-                onPress={() => { }} // Adicione a lógica para alterar a senha
-            />
-            <Button
-                title="Anexar Currículo (PDF)"
-                onPress={handleSelectCurriculo}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Matrícula (RA)"
-                value={matricula}
-                onChangeText={setMatricula}
-            />
-            <Button
-                title="Salvar"
-                onPress={handleSubmit}
-            />
 
-            <Button title="Voltar ao menu" onPress={() => voltarAoMenu()}></Button>
+            <ScrollView style={styles.rolagemVertical}>
+                <Image style={{ width: 300, height: 150, marginLeft: 40 }} source={require('../assets/cacatrampo-logo.png')} />
+                <Text style={styles.title}>Para alterar o cadastro, mude o que desejar nos campos abaixo:</Text>
+
+                <Text style={styles.label}>Nome:</Text>
+                <TextInput style={[styles.inputTexto, { width: '100%' }]} />
+                <Text style={styles.label}>Matrícula Estácio (RA):</Text>
+                <TextInput style={[styles.inputTexto, { width: '100%' }]} keyboardType="numeric" />
+
+                <Text style={styles.label}>E-mail:</Text>
+                <TextInput style={[styles.inputTexto, { width: '100%' }]} keyboardType="email-address" />
+                <Text style={styles.label}>Digite a senha atual:</Text>
+                <TextInput style={[styles.inputTexto, { width: '100%' }]} secureTextEntry={true} />
+                <Text style={styles.label}>Cadastre a nova senha:</Text>
+                <TextInput style={[styles.inputTexto, { width: '100%' }]} secureTextEntry={true} />
+                <Text style={styles.label}>Confirme a nova senha:</Text>
+                <TextInput style={[styles.inputTexto, { width: '100%' }]} secureTextEntry={true} />
+
+                <Text style={styles.label}>Celular</Text>
+                <TextInput style={[styles.inputTexto, { width: '100%' }]} keyboardType="phone-pad" />
+
+                <Text style={styles.label}>Data de nascimento:</Text>
+                <TextInput style={[styles.inputTexto, { width: '100%' }]} keyboardType="numeric" />
+
+
+
+                <Text style={styles.label}>Anexar novo currículo:</Text>
+                <TouchableOpacity style={styles.button}>
+                    <MaterialCommunityIcons
+                        name="book-variant-multiple"
+                        size={40}
+                        color={'#fff'}
+                    />
+
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button} onPress={() => cadastroAlterado('Cadastro Alterado !', 'Inicio')}>
+                    <Text style={styles.buttonText}>Alterar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => menu()} >
+                    <Text style={styles.buttonText}>Voltar</Text>
+                </TouchableOpacity>
+            </ScrollView>
+
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#fff',
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
         padding: 20,
-        backgroundColor: '#99f0f7', // Cor de fundo adicionada
     },
-    imageContainer: {
+    title: {
+        fontSize: 32,
+        fontWeight: 'bold',
         marginBottom: 20,
-        alignItems: 'center',
     },
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50, // Faz a imagem redonda
-    },
-    descriptionText: {
+    label: {
         marginTop: 10,
-        fontSize: 16,
+        fontSize: 32,
+        fontWeight: 'bold',
         textAlign: 'center',
+        color: '#090744'
     },
     input: {
-        height: 40,
-        width: '100%',
-        borderColor: 'gray',
+        backgroundColor: 'white',
         borderWidth: 1,
+        borderColor: 'gray',
         borderRadius: 5,
-        marginBottom: 10,
         paddingHorizontal: 10,
+        paddingVertical: 5,
+        marginBottom: 15,
+    },
+    button: {
+        display: 'flex',
+        backgroundColor: '#090744',
+        padding: 15,
+        width: '70%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 30,
+        marginBottom: 15,
+        marginLeft: 50
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 40,
+        fontWeight: 'bold',
+    },
+    inputTexto: {
+        textAlign: 'center',
+        backgroundColor: '#C6C6D0',
+        borderWidth: 3,
+        borderColor: '#000',
+        width: '70%',
+        height: 73,
+        borderRadius: 30,
+        marginBottom: 15,
+        fontSize: 32,
+        fontWeight: 'bold'
+    },
+    rolagemVertical: {
+
+
     }
+
 });
 
 export default AlterarCadastro;

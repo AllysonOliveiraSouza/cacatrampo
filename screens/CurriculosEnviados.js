@@ -18,12 +18,12 @@ export default function CurriculosEnviados({ navigation }) {
             <Text style={styles.title}>Currículos Enviados</Text>
             <TouchableOpacity onPress={() => console.log('Link 1 Pressed')}>
                 <Text style={[styles.info, customStyles.info]}>
-                    Programador web Junior - Estácio (Enviado em 07/05/2024)
+                    ■ Programador web Junior - Estácio (Enviado em 07/05/2024)
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => console.log('Link 2 Pressed')}>
                 <Text style={[styles.info, customStyles.info]}>
-                    Product Owner - Google (Enviado em 01/03/2024)
+                    ■  Product Owner - Google (Enviado em 01/03/2024)
                 </Text>
             </TouchableOpacity>
             <StatusBar style="auto" />
@@ -37,10 +37,12 @@ export default function CurriculosEnviados({ navigation }) {
 
 const customStyles = StyleSheet.create({
     info: {
-        fontSize: 25,
+        fontSize: 36,
+        fontWeight: 'bold',
         margin: 40,
         marginBottom: 5,
         color: '#090744',
+        textDecorationLine: 'underline'
     },
 });
 
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
         marginBottom: 6,
     },
     info: {
-        fontSize: 25,
+        fontSize: 40,
         margin: 40,
         marginBottom: 5,
         color: '#090744',
@@ -73,7 +75,8 @@ const styles = StyleSheet.create({
         margin: 25,
     },
     buttonText: {
-        fontSize: 25,
-        color: '#e6f1fa',
+        fontSize: 40,
+        fontWeight: 'bold',
+        color: '#fff',
     },
 });

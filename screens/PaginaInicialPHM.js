@@ -32,19 +32,14 @@ export default function PaginaInicialPHM({ navigation }) {
         });
     }
 
-    /*  DEPOIS VOLTAR O BOTÃO PARA ESSA TELA.
-    
-                <TouchableOpacity
-                    style={styles.dialogBox}
-                    onPress={() => {
-                        // Navegar para "Tela de Alteração de Cadastro"
-                        // Animar: Empurrar para a direita
-                    }}
-                >
-                    <Text style={styles.dialogText}>Alterar cadastro</Text>
-                </TouchableOpacity>
-    
-    */
+    function alterarCadastro() {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: "AlterarCadastro" }]
+        });
+    }
+
+
 
 
 
@@ -60,6 +55,13 @@ export default function PaginaInicialPHM({ navigation }) {
 
             >
                 <Text style={styles.dialogText}>Ver vagas</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.dialogBox}
+                onPress={alterarCadastro}
+            >
+                <Text style={styles.dialogText}>Alterar cadastro</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -89,7 +91,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 20,
     },
     logo: {
         width: 300,
@@ -114,7 +115,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         width: 250,
         height: 150,
-        paddingHorizontal: 20,
         paddingTop: 20,
         color: '#090744',
         marginBottom: 20,
@@ -129,66 +129,13 @@ const styles = StyleSheet.create({
         marginBottom: 10, // Espaçamento entre as caixas de mensagem
     },
     dialogText: {
-        fontSize: 18,
+        fontSize: 33,
+        fontWeight: 'bold',
         color: 'white',
     },
 });
 
 
-/*
-
-
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Página Inicial</Text>
-            <Text style={styles.subtitle}>Olá usuário, o que deseja fazer?</Text>
-            <TouchableOpacity style={styles.link} onPress={verVagas}>
-                <Text style={styles.linkText}>Clique aqui para ver vagas de emprego</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.link} onPress={() => verMensagens()}>
-                <Text style={styles.linkText}>Clique aqui para ver mensagens</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.link}>
-                <Text style={styles.linkText}>Clique aqui para ver o seu perfil</Text>
-            </TouchableOpacity>
-        </View>
-    );
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#99f0f7',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 20,
-    },
-    title: {
-        fontSize: 30,
-        color: 'black',
-        marginBottom: 10,
-    },
-    subtitle: {
-        fontSize: 20,
-        color: 'black',
-        marginBottom: 20,
-    },
-    link: {
-        backgroundColor: 'lightblue',
-        padding: 10,
-        marginVertical: 5,
-        borderRadius: 5,
-        width: '100%',
-        alignItems: 'center',
-    },
-    linkText: {
-        fontSize: 18,
-        color: 'blue',
-    },
-});
-
-*/
 
 
 
-///nwkljADKWAJDJWJDOKO

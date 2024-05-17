@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     texto: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#090744'
+        color: '#000'
     },
     textoBotao: {
         fontSize: 40,
@@ -22,16 +22,21 @@ const styles = StyleSheet.create({
         padding: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 20
+        borderRadius: 30
     },
     textoBranco: {
         color: 'white'
+    },
+    texto32azulescuro: {
+        fontSize: 32,
+        color: '#090744'
+
     },
     inputTexto: {
         textAlign: 'center',
         backgroundColor: '#C6C6D0',
         borderWidth: 3,
-        borderColor: '#090744',
+        borderColor: '#000',
         width: '70%',
         height: 73,
         borderRadius: 30,
