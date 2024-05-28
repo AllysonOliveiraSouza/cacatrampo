@@ -1,12 +1,17 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { Image } from 'react-native';
+import { Text, TouchableOpacity, View, Button, Image, Alert, StyleSheet } from 'react-native';
+import LogoCacaTrampo from '../components/LogoCacaTrampo';
+import LogoGrande from '../components/LogoGrande';
+import TextoGrande from '../components/TextoGrande';
 import { useNavigation } from '@react-navigation/native';
+import LabelCT from '../components/LabelCT';
+import TextoInput from '../components/TextoInput';
+import BotaoPrincipal from '../components/BotaoPrincipal';
+import LinkVermelho from '../components/LinkVermelho';
+import Link from '../components/Link';
 
-export default function Mensagem({ route }) {
+export default function Mensagem({ route }){
 
-    const navigation = useNavigation();
+const navigation = useNavigation();
 
     const telaParaCarregar = route.params?.tela;
 
@@ -16,24 +21,22 @@ export default function Mensagem({ route }) {
 
     timeoutId();
 
-    return (
-        <View style={[styles.container, { backgroundColor: '#13E969' }]}>
-            <Image style={{ width: 450, height: 250 }} source={require('../assets/cacatrampo-logo.png')} />
-            <Text style={styles.title}>{route.params?.mensagem}</Text>
+
+  return(
+        <View style={styles.container}>
+        <LogoGrande/>
+        <TextoGrande texto={route.params?.mensagem}/>        
         </View>
-    );
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+  container:{
+     flex: 1,
+        backgroundColor: '#13E969',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    title: {
-        fontWeight: 'bold',
-        fontSize: 70,
-        marginBottom: 16,
-        width: '80%'
-    },
+        paddingLeft: 15,
+        paddingRight: 15
+  }
 });

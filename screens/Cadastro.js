@@ -1,49 +1,80 @@
-import 'react-native-gesture-handler';
-import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
-import styles from '../styles/styles';
-import { TextInput } from 'react-native-gesture-handler';
-import RNPickerSelect from 'react-native-picker-select';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import LogoCacaTrampo from '../components/LogoCacaTrampo';
+import LabelCT from '../components/LabelCT';
+import TextoInput from '../components/TextoInput';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-function SelecaoTipoUsuario() {
-    return (
-        <RNPickerSelect placeholder={{ label: 'Selecione um item' }}
-            onValueChange={(value) => console.log(value)}
-            items={[
-                { label: 'Candidato', value: 'Candidato' },
-                { label: 'Empresa', value: 'Empresa' },
-            ]}
-        />
-    );
-};
+import BotaoCadastro from '../components/BotaoCadastro';
 
-export default function Cadastro({ navigation }) {
+import TituloCT from '../components/TituloCT';
 
-    function entrar() {
-        navigation.reset({
-            index: 0,
-            routes: [{ name: "Inicio" }]
-        })
-    }
+export default function Cadastro() {
+
+  const navigation = useNavigation();
+
+  function irPraTela(tela) {
+    navigation.navigate(tela);
+  }
+
+  function MsgSucesso(tela, mensagem) {
+    navigation.navigate("Mensagem", { mensagem: mensagem, tela: tela });
+  }
+
+  return (
+    <View style={styles.container}>
+      <LogoCacaTrampo />
+      <TituloCT titulo="Preencha os campos abaixo para cadastrar-se:" />
+      <ScrollView style={styles.containerScroll}>
+        <LabelCT textoLabel="Nome:" />
+        <TextoInput />
+        <LabelCT textoLabel="Matrícula Estácio (RA):" />
+        <TextoInput />
+        <LabelCT textoLabel="E-mail:" />
+        <TextoInput />
+        <LabelCT textoLabel="Cadastre uma senha:" />
+        <TextoInput />
+        <LabelCT textoLabel="Repita a senha:" />
+        <TextoInput />
+        <LabelCT textoLabel="Celular:" />
+        <TextoInput />
+        <LabelCT textoLabel="Data de nascimento:" />
+        <TextoInput />
+        <LabelCT textoLabel="Anexar um currículo:" />
+        <TouchableOpacity style={styles.botao} onPress={() => Alert.alert('Arquivo anexado com sucesso!')}>
+          <MaterialCommunityIcons name="book-variant-multiple" size={40} color={'#fff'} />
+        </TouchableOpacity>
+        <BotaoCadastro textoBotao="Cadastrar" click={() => MsgSucesso("Login", "Cadastro feito!")} />
+        <BotaoCadastro textoBotao="Sair" click={() => irPraTela("Login")} />
+
+      </ScrollView>
+    </View>
 
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.texto}>Caça trampo - Tela de Cadastro</Text>
-            <Text>Nome completo:</Text>
-            <TextInput style={styles.inputTexto} placeholder=' Digite o seu nome' keyboardType='email-address'></TextInput>
-            <Text>E-mail:</Text>
-            <TextInput style={styles.inputTexto} placeholder=' Digite o seu e-mail' keyboardType='email-address'></TextInput>
 
-            <Text>Data de nascimento:</Text>
-            <TextInput style={styles.inputTexto} placeholder=' DD/MM/AAAA' keyboardType='email-address'></TextInput>
-            <Text>Cadastre uma senha:</Text>
-            <TextInput style={styles.inputTexto} placeholder=' Digite a senha' secureTextEntry={true}></TextInput>
-            <Text>Você é?</Text>
-            <SelecaoTipoUsuario style={styles.select}></SelecaoTipoUsuario>
-            <TouchableOpacity style={styles.botao} onPress={() => entrar()}>
-                <Text style={styles.textoBranco}>Clique aqui para finalizar o cadastro!</Text>
-            </TouchableOpacity>
-
-        </View >
-    );
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 15
+  },
+  containerScroll: {
+    width: '100%',
+    paddingRight: 15,
+    paddingLeft: 15
+  },
+  botao: {
+    display: 'flex',
+    backgroundColor: '#090744',
+    padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    marginBottom: 15
+  }
+});
