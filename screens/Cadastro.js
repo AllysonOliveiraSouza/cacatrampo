@@ -1,25 +1,91 @@
-import { View, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Alert, Text, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LogoCacaTrampo from '../components/LogoCacaTrampo';
 import LabelCT from '../components/LabelCT';
 import TextoInput from '../components/TextoInput';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import urlsAPI from '../api';
 
 import BotaoCadastro from '../components/BotaoCadastro';
 
 import TituloCT from '../components/TituloCT';
+import Curriculo from '../components/Currículo';
+import BotaoPrincipal from '../components/BotaoPrincipal';
+import { useState } from 'react';
+
 
 export default function Cadastro() {
 
   const navigation = useNavigation();
 
+  let dadosCandidato = {
+    nome: "",
+    email: "",
+    senha: "",
+    matricula: "",
+    telContato: ""
+  }
+
+  let infosParaCurriculo = {
+    dataNascimento: "",
+    localResidencia: "",
+    conhecimentosTecnicos: "",
+    experiencias: "",
+    formacao: "",
+    idiomas: "",
+    cursos: ""
+  }
+
+  let conteudoCurriculo = "";
+
+  let cadastrarCurriculo = {
+    conteudo: "",
+    candidato: {
+      id: 0
+    }
+  }
+
   function irPraTela(tela) {
     navigation.navigate(tela);
   }
 
+  async function cadastrar() {
+    const responseFetch = await fetch(urlsAPI.operacoesCandidatos, {
+      method: 'POST',
+      body: JSON.stringify(
+        dadosCandidato
+      ), headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      }
+    }
+    );
+    const idGerado = await responseFetch.json();
+    cadastrarCurriculo.candidato.id = idGerado;
+  }
+
+  async function anexarCurriculo() {
+    conteudoCurriculo = `Informações pessoais \nNome: ${dadosCandidato.nome} \nE-mail: ${dadosCandidato.email} \nMatrícula Estácio: ${dadosCandidato.matricula} \nContato: ${dadosCandidato.telContato} \nData de nascimento: ${infosParaCurriculo.dataNascimento} \nLocal de Residência: ${infosParaCurriculo.localResidencia}\nConhecimentos técnicos : ${infosParaCurriculo.conhecimentosTecnicos}\nExperiências : ${infosParaCurriculo.experiencias}\nFormação \n${infosParaCurriculo.formacao} \nIdiomas \n${infosParaCurriculo.idiomas}\nCursos e certificações: \n${infosParaCurriculo.cursos}`;
+    cadastrarCurriculo.conteudo = conteudoCurriculo;
+
+
+    const postCurriculo = await fetch(urlsAPI.operacoesCurriculos, {
+      method: 'POST',
+      body: JSON.stringify(
+        cadastrarCurriculo
+      ), headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      }
+    });
+    const respostaPostCurriculo = postCurriculo.status;
+    console.log(respostaPostCurriculo);
+  }
+
+
   function MsgSucesso(tela, mensagem) {
     navigation.navigate("Mensagem", { mensagem: mensagem, tela: tela });
   }
+
+  // View
 
   return (
     <View style={styles.container}>
@@ -27,33 +93,61 @@ export default function Cadastro() {
       <TituloCT titulo="Preencha os campos abaixo para cadastrar-se:" />
       <ScrollView style={styles.containerScroll}>
         <LabelCT textoLabel="Nome:" />
-        <TextoInput />
+        <TextoInput onChangeText={(text) => dadosCandidato.nome = text} />
         <LabelCT textoLabel="Matrícula Estácio (RA):" />
-        <TextoInput />
+        <TextoInput onChangeText={(text) => dadosCandidato.matricula = text} />
         <LabelCT textoLabel="E-mail:" />
-        <TextoInput />
+        <TextoInput onChangeText={(text) => dadosCandidato.email = text} />
         <LabelCT textoLabel="Cadastre uma senha:" />
-        <TextoInput />
-        <LabelCT textoLabel="Repita a senha:" />
-        <TextoInput />
+        <TextoInput onChangeText={(text) => dadosCandidato.senha = text} secureTextEntry={true} />
         <LabelCT textoLabel="Celular:" />
-        <TextoInput />
-        <LabelCT textoLabel="Data de nascimento:" />
-        <TextoInput />
-        <LabelCT textoLabel="Anexar um currículo:" />
-        <TouchableOpacity style={styles.botao} onPress={() => Alert.alert('Arquivo anexado com sucesso!')}>
-          <MaterialCommunityIcons name="book-variant-multiple" size={40} color={'#fff'} />
-        </TouchableOpacity>
-        <BotaoCadastro textoBotao="Cadastrar" click={() => MsgSucesso("Login", "Cadastro feito!")} />
-        <BotaoCadastro textoBotao="Sair" click={() => irPraTela("Login")} />
+        <TextoInput onChangeText={(text) => dadosCandidato.telContato = text} />
+        <TituloCT titulo="Currículo" />
+        <LabelCT textoLabel="Preencha os dados abaixo do currículo:" />
 
+        <View style={stylesCV.container}>
+          <Text style={stylesCV.texto}>
+            Informações pessoais
+          </Text>
+          <TextInput style={stylesCV.textInput} placeholder="Data de nascimento" onChangeText={(text) => infosParaCurriculo.dataNascimento = text} />
+          <TextInput style={stylesCV.textInput} placeholder="Local de residência" multiline={true} onChangeText={(text) => infosParaCurriculo.localResidencia = text} />
+          <Text style={stylesCV.texto}>
+            Conhecimentos técnicos
+          </Text>
+          <TextInput style={stylesCV.textInput} placeholder="Digite aqui seus conhecimentos técnicos" multiline={true} onChangeText={(text) => infosParaCurriculo.conhecimentosTecnicos = text} />
+          <Text style={stylesCV.texto}>
+            Experiências
+          </Text>
+          <TextInput style={stylesCV.textInput} placeholder="Digite aqui suas experiências profissionais" multiline={true} onChangeText={(text) => infosParaCurriculo.experiencias = text} />
+          <Text style={stylesCV.texto}>
+            Formação
+          </Text>
+          <TextInput style={stylesCV.textInput} placeholder="Digite aqui suas informações sobre formação acadêmica" multiline={true} onChangeText={(text) => infosParaCurriculo.formacao = text} />
+
+          <Text style={stylesCV.texto}>
+            Idiomas
+          </Text>
+          <TextInput style={stylesCV.textInput} placeholder="Digite aqui sobre seu conhecimento em idiomas" multiline={true} onChangeText={(text) => infosParaCurriculo.idiomas = text} />
+          <Text style={stylesCV.texto}>
+            Cursos e/ou certificações
+          </Text>
+          <TextInput style={stylesCV.textInput} placeholder="Digite aqui sobre seus cursos e certificações" multiline={true} onChangeText={(text) => infosParaCurriculo.cursos = text} />
+        </View>
+
+        <BotaoCadastro textoBotao="Cadastrar" click={async () => {
+          await cadastrar();
+          await anexarCurriculo();
+          MsgSucesso("Login", "Cadastro feito!");
+        }} />
+        <BotaoCadastro textoBotao="Sair" click={() => irPraTela("Login")} />
       </ScrollView>
     </View>
 
-
-
   );
 }
+
+
+//Estilos
 
 const styles = StyleSheet.create({
   container: {
@@ -76,5 +170,43 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 30,
     marginBottom: 15
+  }
+});
+
+const stylesCV = StyleSheet.create({
+  container: {
+    backgroundColor: '#090744',
+    width: '100%',
+    marginBottom: 15,
+    borderRadius: 30,
+    padding: 10,
+    paddingBottom: 20
+  },
+  texto: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  textInput: {
+    backgroundColor: '#C6C6D0',
+    width: '100%',
+    fontSize: 25,
+    borderRadius: 20,
+    textAlign: 'center',
+    marginBottom: 15,
+    padding: 10
+  },
+  botaoCurriculo: {
+    backgroundColor: '#fa6132',
+    width: '100%',
+    borderRadius: 20
+  },
+  textoBotao: {
+    textAlign: 'center',
+    fontSize: 25,
+    fontWeight: 'bold',
+    padding: 10
   }
 });

@@ -1,7 +1,7 @@
-import axios from 'axios';
+const urlsAPI = {
+    loginCandidatos: "http://192.168.1.109:8080/candidatos/login",
+    operacoesCandidatos: "http://192.168.1.109:8080/candidatos",
+    operacoesCurriculos: "http://192.168.1.109:8080/curriculos"
+}
 
-const api = axios.create({
-    baseURL: 'http://localhost:8080/candidatos'
-});
-
-export default api;
+export default urlsAPI;
