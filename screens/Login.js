@@ -14,8 +14,6 @@ export default function Login() {
 
   const navigation = useNavigation();
 
-
-
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
   let candidato = {};
@@ -41,13 +39,19 @@ export default function Login() {
     }
   }
 
-  async function irPraTela(tela) {
+  function irParaInicio() {
+    navigation.navigate("Inicio")
+  }
+
+  async function irPraTela() {
     await PromiseFetchLogin();
 
     if (login === candidato.email && senha === candidato.senha) {
       console.log("login com sucesso!")
+      Globais.idCandidatoLogado = candidato.id;
       Globais.logado = true;
-      navigation.navigate(tela, { candidato: candidato });
+      Globais.nomeCandidato = candidato.nome;
+      irParaInicio();
     } else if (login === "adm" && senha === "adm") {
       navigation.navigate("InicioADM");
     }
@@ -69,11 +73,7 @@ export default function Login() {
       }} />
       <LabelCT textoLabel="Senha:" />
       <TextoInput value={senha} onChangeText={newText => setSenha(newText)} secureTextEntry={true} />
-      <BotaoPrincipal textoBotao="Entrar" click={() => {
-        console.log(Globais.logado);
-        console.log(`id global : ${Globais.idCandidatoLogado}`)
-        irPraTela("Inicio");
-      }} />
+      <BotaoPrincipal textoBotao="Entrar" click={() => irPraTela()} />
       <LinkVermelho textoLink="Esqueceu a senha? Clique aqui !" click={() => CadastrarOuRecuperar("RecuperarSenha")} />
       <Link textoLink="Não possui cadastro? Clique aqui !" click={() => CadastrarOuRecuperar("Cadastro")} />
     </View>

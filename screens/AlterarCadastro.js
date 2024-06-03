@@ -14,11 +14,17 @@ export default function AlterarCadastro() {
 
   const [dadosCandidato, setDadosCandidato] = useState([]);
   const [curriculo, setCurriculo] = useState([]);
+  let prepararDadosAlteracao = {
+    id: Globais.idCandidatoLogado,
+    nome: "",
+    email: "",
+    senha: "",
+    matricula: "",
+    telContato: ""
+  }
+
   useEffect(() => {
     console.log(Globais.idCandidatoLogado)
-
-
-
     carregarDadosCandidato()
       .then((response) => setDadosCandidato(response))
 
@@ -44,23 +50,6 @@ export default function AlterarCadastro() {
     return json;
   }
 
-  function prepararDados(dadosDoCandidato, curriculoCandidato) {
-    const dadosPreparados = {
-      id: dadosDoCandidato.id,
-      nome: dadosDoCandidato.nome,
-      senha: dadosDoCandidato.senha,
-      matricula: dadosDoCandidato.matricula,
-      telContato: dadosDoCandidato.telContato,
-      curriculo: {
-        id: curriculoCandidato.id,
-        conteudo: curriculoCandidato.conteudo
-      },
-      vagas: dadosDoCandidato.vagas
-    }
-
-    return dadosPreparados;
-  }
-
   async function alterarDados(dados) {
     const response = await fetch(`${urlsAPI.operacoesCandidatos}`, {
       method: 'PUT',
@@ -69,17 +58,15 @@ export default function AlterarCadastro() {
       ), headers: {
         'Content-type': 'application/json; charset=UTF-8',
       }
-    })
+    });
+
     const status = response.status;
-    console.log(status);
-    return status;
+    MsgSucesso("Inicio", "Status : " + status)
   }
 
   function MsgSucesso(tela, mensagem) {
     navigation.navigate("Mensagem", { mensagem: mensagem, tela: tela });
   }
-
-
 
   return (
     <View style={styles.container}>
@@ -88,17 +75,31 @@ export default function AlterarCadastro() {
       <ScrollView style={styles.containerScroll}>
         <LabelCT textoLabel="Nome:" />
         <TextoInput defaultValue={dadosCandidato.nome} multiline={true}
-          onChangeText={text => setDadosCandidato(dadosCandidato, dadosCandidato.nome = text)} />
+          onChangeText={text => {
+            prepararDadosAlteracao["nome"] = text;
+            Globais.nomeCandidato = text;
+            console.log(prepararDadosAlteracao);
+          }} />
         <LabelCT textoLabel="Matrícula Estácio (RA):" />
-        <TextoInput defaultValue={dadosCandidato.matricula} />
+        <TextoInput defaultValue={dadosCandidato.matricula} onChangeText={text => {
+          prepararDadosAlteracao["matricula"] = text;
+          console.log(prepararDadosAlteracao);
+        }} />
         <LabelCT textoLabel="E-mail:" />
-        <TextoInput defaultValue={dadosCandidato.email} />
+        <TextoInput defaultValue={dadosCandidato.email} onChangeText={text => {
+          prepararDadosAlteracao["email"] = text;
+          console.log(prepararDadosAlteracao);
+        }} />
         <LabelCT textoLabel="Cadastre uma nova senha:" />
-        <TextoInput secureTextEntry={true} />
-        <LabelCT textoLabel="Repita a senha nova:" />
-        <TextoInput secureTextEntry={true} />
+        <TextoInput secureTextEntry={true} onChangeText={text => {
+          prepararDadosAlteracao["senha"] = text;
+          console.log(prepararDadosAlteracao);
+        }} />
         <LabelCT textoLabel="Celular:" />
-        <TextoInput defaultValue={dadosCandidato.telContato} />
+        <TextoInput defaultValue={dadosCandidato.telContato} onChangeText={text => {
+          prepararDadosAlteracao["telContato"] = text;
+          console.log(prepararDadosAlteracao);
+        }} />
         <MarginBottom15 />
         <View style={stylesCV.container}>
           <Text style={stylesCV.texto}>
@@ -108,8 +109,9 @@ export default function AlterarCadastro() {
 
         </View>
         <BotaoCadastro textoBotao="Alterar" click={() => {
+          alterarDados(prepararDadosAlteracao);
         }} />
-        <BotaoCadastro textoBotao="Voltar" click={() => irPraTela("Inicio")} />
+        <BotaoCadastro textoBotao="Voltar" click={() => navigation.navigate("Inicio")} />
 
       </ScrollView>
     </View>
