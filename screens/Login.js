@@ -6,12 +6,15 @@ import TextoInput from '../components/TextoInput';
 import BotaoPrincipal from '../components/BotaoPrincipal';
 import LinkVermelho from '../components/LinkVermelho';
 import Link from '../components/Link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import urlsAPI from '../api';
+import Globais from '../Globais';
 
 export default function Login() {
 
   const navigation = useNavigation();
+
+
 
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
@@ -43,6 +46,7 @@ export default function Login() {
 
     if (login === candidato.email && senha === candidato.senha) {
       console.log("login com sucesso!")
+      Globais.logado = true;
       navigation.navigate(tela, { candidato: candidato });
     } else if (login === "adm" && senha === "adm") {
       navigation.navigate("InicioADM");
@@ -66,6 +70,8 @@ export default function Login() {
       <LabelCT textoLabel="Senha:" />
       <TextoInput value={senha} onChangeText={newText => setSenha(newText)} secureTextEntry={true} />
       <BotaoPrincipal textoBotao="Entrar" click={() => {
+        console.log(Globais.logado);
+        console.log(`id global : ${Globais.idCandidatoLogado}`)
         irPraTela("Inicio");
       }} />
       <LinkVermelho textoLink="Esqueceu a senha? Clique aqui !" click={() => CadastrarOuRecuperar("RecuperarSenha")} />

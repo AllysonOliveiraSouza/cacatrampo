@@ -11,7 +11,7 @@ const CardVaga = (props) => {
 
       <View style={styles.infosVaga}>
         <Text style={[styles.textoInfo, { color: 'yellow', margin: 5 }]}>Postagem : {props.postagem}</Text>
-        <Text style={styles.textoInfo}>Salário : {props.salario}</Text>
+        <Text style={styles.textoInfo}>Salário : {props.salario} R$</Text>
         <Text style={styles.textoInfo}>Contratação : {props.contratacao}</Text>
         <Text style={styles.textoInfo}>Modelo : {props.modelo}</Text>
         <Text style={styles.textoInfo}>Local : {props.local}</Text>

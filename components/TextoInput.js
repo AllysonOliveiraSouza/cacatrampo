@@ -2,7 +2,7 @@ import { StyleSheet, TextInput } from 'react-native';
 
 export default function TextoInput(props) {
   return (
-    <TextInput style={styles.textoInput} placeholder={props.placeholder} onChangeText={props.onChangeText} value={props.value} secureTextEntry={props.secureTextEntry} defaultValue={props.defaultValue} />
+    <TextInput style={styles.textoInput} placeholder={props.placeholder} onChangeText={props.onChangeText} value={props.value} secureTextEntry={props.secureTextEntry} defaultValue={props.defaultValue} multiline={props.multiline} />
 
   )
 }
@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: '#000',
     width: '100%',
-    height: 60,
     borderRadius: 30,
     fontSize: 30,
     fontWeight: 'bold',

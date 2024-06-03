@@ -3,16 +3,9 @@ import { useNavigation } from '@react-navigation/native';
 import LogoCacaTrampo from '../components/LogoCacaTrampo';
 import LabelCT from '../components/LabelCT';
 import TextoInput from '../components/TextoInput';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import urlsAPI from '../api';
-
 import BotaoCadastro from '../components/BotaoCadastro';
-
 import TituloCT from '../components/TituloCT';
-import Curriculo from '../components/Currículo';
-import BotaoPrincipal from '../components/BotaoPrincipal';
-import { useState } from 'react';
-
 
 export default function Cadastro() {
 
@@ -64,9 +57,9 @@ export default function Cadastro() {
   }
 
   async function anexarCurriculo() {
-    conteudoCurriculo = `Informações pessoais \nNome: ${dadosCandidato.nome} \nE-mail: ${dadosCandidato.email} \nMatrícula Estácio: ${dadosCandidato.matricula} \nContato: ${dadosCandidato.telContato} \nData de nascimento: ${infosParaCurriculo.dataNascimento} \nLocal de Residência: ${infosParaCurriculo.localResidencia}\nConhecimentos técnicos : ${infosParaCurriculo.conhecimentosTecnicos}\nExperiências : ${infosParaCurriculo.experiencias}\nFormação \n${infosParaCurriculo.formacao} \nIdiomas \n${infosParaCurriculo.idiomas}\nCursos e certificações: \n${infosParaCurriculo.cursos}`;
-    cadastrarCurriculo.conteudo = conteudoCurriculo;
 
+    conteudoCurriculo = `Informações pessoais \n\nNome: ${dadosCandidato.nome} \nE-mail: ${dadosCandidato.email} \nMatrícula Estácio: ${dadosCandidato.matricula} \nContato: ${dadosCandidato.telContato} \nData de nascimento: ${infosParaCurriculo.dataNascimento} \nLocal de Residência: ${infosParaCurriculo.localResidencia}\n\nConhecimentos técnicos :\n\n ${infosParaCurriculo.conhecimentosTecnicos}\n\nExperiências :\n\n ${infosParaCurriculo.experiencias}\n\nFormação \n\n${infosParaCurriculo.formacao} \n\nIdiomas \n\n${infosParaCurriculo.idiomas}\n\nCursos e certificações: \n\n${infosParaCurriculo.cursos}`;
+    cadastrarCurriculo.conteudo = conteudoCurriculo;
 
     const postCurriculo = await fetch(urlsAPI.operacoesCurriculos, {
       method: 'POST',
@@ -76,6 +69,7 @@ export default function Cadastro() {
         'Content-type': 'application/json; charset=UTF-8',
       }
     });
+
     const respostaPostCurriculo = postCurriculo.status;
     console.log(respostaPostCurriculo);
   }
@@ -123,7 +117,6 @@ export default function Cadastro() {
             Formação
           </Text>
           <TextInput style={stylesCV.textInput} placeholder="Digite aqui suas informações sobre formação acadêmica" multiline={true} onChangeText={(text) => infosParaCurriculo.formacao = text} />
-
           <Text style={stylesCV.texto}>
             Idiomas
           </Text>
@@ -142,10 +135,8 @@ export default function Cadastro() {
         <BotaoCadastro textoBotao="Sair" click={() => irPraTela("Login")} />
       </ScrollView>
     </View>
-
   );
 }
-
 
 //Estilos
 
