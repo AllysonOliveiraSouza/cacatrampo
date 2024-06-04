@@ -61,7 +61,7 @@ export default function AlterarCadastro() {
     });
 
     const status = response.status;
-    MsgSucesso("Inicio", "Status : " + status)
+    MsgSucesso("Inicio", "Dados Alterados!")
   }
 
   function MsgSucesso(tela, mensagem) {

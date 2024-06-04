@@ -15,11 +15,8 @@ export default function CardGerenciaVaga(props) {
             <Text style={styles.tituloVaga}>{props.tituloVaga} </Text>
             <Text style={styles.empresaVaga}>Empresa : {props.empresa} </Text>
             <Text style={styles.dataPostagem}>Data postagem : {props.dataPostagem} </Text>
-            <TouchableOpacity style={styles.botao} onPress={() => MsgSucesso()}>
+            <TouchableOpacity style={styles.botao} onPress={props.onPress}>
                 <Text style={styles.textoBotao}>Excluir vaga</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate("AlterarVaga")}>
-                <Text style={styles.textoBotao}>Alterar dados da vaga</Text>
             </TouchableOpacity>
         </View>
 

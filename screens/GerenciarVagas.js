@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View, Button, Image, Alert, StyleSheet, ScrollView } from 'react-native';
+import { Text, TouchableOpacity, View, Button, Image, Alert, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LogoCacaTrampo from '../components/LogoCacaTrampo';
 import TituloCT from '../components/TituloCT';
@@ -9,8 +9,17 @@ import BotaoPrincipal from '../components/BotaoPrincipal';
 import LinkVermelho from '../components/LinkVermelho';
 import Link from '../components/Link';
 import CardGerenciaVaga from '../components/CardGerenciaVaga';
+import { useEffect, useState } from 'react';
+import urlsAPI from '../api';
 
 export default function GerenciarVagas() {
+    const [listaVagas, setListaVagas] = useState({});
+
+    useEffect(() => {
+        console.log("Testando useEffect !!!")
+        carregarVagas()
+            .then((resposta) => setListaVagas(resposta))
+    }, [])
 
     const navigation = useNavigation();
 
@@ -18,16 +27,43 @@ export default function GerenciarVagas() {
         navigation.navigate(tela);
     }
 
+    function Msg() {
+        navigation.navigate("Mensagem", { mensagem: "Vaga excluída", tela: "InicioADM" })
+    }
 
+    async function carregarVagas() {
+        const response = await fetch(urlsAPI.operacoesVagas);
+        const vagas = response.json();
+        return vagas;
+    }
+
+    async function excluirVaga(id) {
+
+        //limpando candidatos antes de excluir a vaga
+        const limpandoCandidatos = () => fetch(`${urlsAPI.limparCandidatosVaga}/${id}`, {
+            method: 'DELETE'
+        }).then((response) => console.log(response.status))
+            .catch((e) => console.log(e))
+
+        const excluindoVaga = () => fetch(`${urlsAPI.operacoesVagas}/${id}`, {
+            method: "DELETE"
+        })
+            .then((response) => console.log(response.status))
+            .catch((e) => console.log(e))
+
+        await limpandoCandidatos();
+        await excluindoVaga();
+    }
 
     return (
         <View style={styles.container}>
             <LogoCacaTrampo />
             <TituloCT titulo="Gerencia de vagas" />
-            <ScrollView style={styles.containerScroll}>
-                <CardGerenciaVaga tituloVaga="Atacante" empresa="Clube de Regatas Flamengo" dataPostagem="27/05/2024" />
-                <CardGerenciaVaga tituloVaga="Cuidador de animais" empresa="Confidencial" dataPostagem="27/05/2024" />
-            </ScrollView>
+            <FlatList style={styles.containerScroll} data={listaVagas} renderItem={({ item }) =>
+                <CardGerenciaVaga tituloVaga={item.titulo} empresa={item.nomeEmpresa} dataPostagem={item.dataPostagem} onPress={() => excluirVaga(item.id).then(Msg())} />
+            }>
+            </FlatList>
+
             <BotaoPrincipal textoBotao="Voltar" click={() => irPraTela("InicioADM")} />
         </View>
     );
@@ -46,7 +82,6 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingLeft: 10,
         paddingRight: 10,
-        maxHeight: 450,
-
+        maxHeight: 450
     }
 });

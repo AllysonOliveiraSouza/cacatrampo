@@ -6,7 +6,9 @@ const urlsAPI = {
     operacoesCurriculos: "http://192.168.1.103:8080/curriculos",
     operacoesVagas: "http://192.168.1.103:8080/vagas",
     candidatarVaga: "http://192.168.1.103:8080/candidatarvaga",
-    buscarCurriculoCandidato: "http://192.168.1.103:8080/curriculos/candidato"
+    buscarCurriculoCandidato: "http://192.168.1.103:8080/curriculos/candidato",
+    operacoesVagas: "http://192.168.1.103:8080/vagas",
+    limparCandidatosVaga: "http://192.168.1.103:8080/candidatarvaga/limpar"
 }
 
 
